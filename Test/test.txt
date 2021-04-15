@@ -1,0 +1,43 @@
+Vertex read :  268410
+Surfaces read :  527566
+268410 527566
+{82011 82638 82012}
+Number of points in V1 :  22367
+Number of points in V2 :  32067
+Number of points in V3 :  71370
+{-0.37068903 0.07805483 -1.0332501 83 92 83} {-0.35112998 0.053806666 -1.0417501 69 78 58} {-0.20787293 -0.13844094 -0.37225002 61 63 54}
+{0.219272 -0.12340906 -0.37325 82 71 62} {0.24496885 -0.08836637 -0.92 122 136 138} {0.22706614 -0.11235675 -0.93675005 123 137 141}
+The percentage of the points in V1 that fit the plane with the bias of  0.1  m.
+         p1 :  0.7971118165154022
+         p2 :  0
+The percentage of the points in V2 that fit the plane with the bias of  0.1  m.
+         p1 :  0
+         p2 :  0.8280163407864783
+The percentage of the points in V3 that fit the plane with the bias of  0.1  m.
+         p1 :  0.2769931343701835
+         p2 :  0.1614123581336696
+
+{-0.39679235 -0.03132078 -1.014 76 88 80} {-0.31017056 -0.121205576 -1.0485001 74 78 71} {-0.25549832 -0.14149703 -0.35750002 78 62 57}
+{0.30104965 0.063337475 -0.86325 135 146 146} {0.34998852 -0.1350528 -0.81575006 94 101 95} {0.17037746 -0.12988123 -0.2655 86 72 64}
+The percentage of the points in V1 that fit the plane with the bias of  0.1  m.
+         p1 :  0.7656815844771315
+         p2 :  4.470872267179327e-05
+The percentage of the points in V2 that fit the plane with the bias of  0.1  m.
+         p1 :  0
+         p2 :  0.6884335921664015
+The percentage of the points in V3 that fit the plane with the bias of  0.1  m.
+         p1 :  0.16627434496286955
+         p2 :  0.13874176824996498
+
+{-0.26427212 -0.20776553 -1.0842501 74 78 71} {-0.39293784 -0.13207883 -1.00975 30 54 26} {-0.2569165 0.1253018 -1.093 86 98 90}
+{0.16316745 -0.12773094 -0.32450002 70 73 72} {0.16148783 -0.12707612 -0.3745 83 76 70} {0.30816954 0.01261941 -0.85700005 124 137 136}
+The percentage of the points in V1 that fit the plane with the bias of  0.1  m.
+         p1 :  0.6586489024008584
+         p2 :  0
+The percentage of the points in V2 that fit the plane with the bias of  0.1  m.
+         p1 :  0
+         p2 :  0.7567904699535348
+The percentage of the points in V3 that fit the plane with the bias of  0.1  m.
+         p1 :  0.1645369202746252
+         p2 :  0.421395544346364
+

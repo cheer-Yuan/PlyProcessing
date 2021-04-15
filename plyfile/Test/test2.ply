@@ -1,0 +1,20 @@
+ply
+format ascii 1.0
+comment go author: Alex Baden, c author: Greg Turk
+obj_info random information
+element vertex 8
+property float x
+property float y
+property float z
+element face 6
+property uchar intensity
+property list uchar int vertex_indices
+end_header
+0 0 0 
+1 0 0 
+1 1 0 
+0 1 0 
+0 0 1 
+1 0 1 
+1 1 1 
+0 1 1 
