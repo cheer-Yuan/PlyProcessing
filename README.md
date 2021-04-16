@@ -1,4 +1,9 @@
-## To understand the program please read ./calculator/PointcloudCalculator_test.go
+##Environment configuration :
+
+
+To install the gonum package : go get -u gonum.org/v1/gonum/mat
+
+To run the under commandline and get some outputs : go run main.go
 
 #Version 1.1
 2 functions added in PointcloudCalculator.go, using least square method and RANSAC

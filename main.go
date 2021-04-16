@@ -2,63 +2,95 @@ package main
 
 import (
 	"./reader"
+	"fmt"
+	"./calculator"
+	"./mymath"
 )
 
-//Test if a vertex belongs to a plane
 func main() {
-	//// Reading the file using the original reader
-	//header, vertex, face := reader.Read_Ply(filename)
-
-	filename := "./data/angle_of_board_and_paper_card_on_table/2021-03-31-09:56:18-.ply"
+	// this ply file is composed by 3 surfaces : the cabinet, the shredder and the floor, perpendicular one to another (please check the .png file under the same directory)
+	filename := "./data/cabinet_paperdestroyer_ground/2021-04-15-12:10:03-.ply"
 
 	// Reading the file using adopted library plyfile
-	vlist, flist := reader.ReadPLY(filename)
+	vlist, _ := reader.ReadPLY(filename)
 
+	xmin, xmax, ymin, ymax := 0., 0., 0., 0.
 
-
-
-
-
-/*	// Prepare outputs of the log
-	file, err_F := os.OpenFile("./Test/test.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err_F != nil { log.Fatal(err_F) }
-	defer file.Close()
-	mw := io.MultiWriter(os.Stdout, file)
-	log.SetOutput(mw)
-
-	// Create sets of critic zones
-	V1 := calculator.New_z(-0.4, -0.2, -0.23, 0.13, vertex, header)
+	// set the critical zone of the points manually
+	for _, vertex := range vlist {
+		if vertex.Ply_x < xmin {
+			xmin = vertex.Ply_x
+		} else if vertex.Ply_x > xmax {
+			xmax = vertex.Ply_x
+		}
+		if vertex.Ply_y < ymin{
+			ymin = vertex.Ply_y
+		} else if vertex.Ply_y > ymax {
+			ymax = vertex.Ply_y
+		}
+	}
+	fmt.Println(xmin, xmax, ymin, ymax)
+	
+	// V1 : the surface of the shredder
+	V1 := calculator.New_z(0.2, 0.31, -0.15, 0, vlist)
 	fmt.Println("Number of points in V1 : ", V1.Zone_count())
-	V2 := calculator.New_z(0.15, 0.35, -0.33, 0.13, vertex, header)
+	// V2 : the surface of the shredder
+	V2 := calculator.New_z(-0.37, -0.15, -0.15, 0, vlist)
 	fmt.Println("Number of points in V2 : ", V2.Zone_count())
-	V3 := calculator.New_z(-0.2, 0.15, -0.21, 0.11, vertex, header)
+	// V3 : the surface of the floor
+	V3 := calculator.New_z(-999, 999, 0.4, 0.45, vlist)
 	fmt.Println("Number of points in V3 : ", V3.Zone_count())
 
-	// Creating 3 surfaces from the critic zones
-	p1 := calculator.New_p_by_points(V1)
-	p2 := calculator.New_p_by_points(V2)
+	// fit the vertices in V1 to a plane using the RANSAC method
+	PlaneRANSAC1, _, _ := calculator.PlaneFittingRANSAC(V1.V , 0.02, 0.98,500, 4 * len(V1.V))
+	fmt.Println("Plane fitted by RANSAC for group of dots V1 : ", PlaneRANSAC1)
+	fmt.Println("Average distance between the vertices and the plane is : ", PlaneRANSAC1.DistAvrPointPlane(V1.V), "  meters")
+	fmt.Print("\n")
+	// fit the vertices in V1 to a plane using the least square method
+	PlaneLS1 := calculator.PlaneFittingLeastSquare(V1.V)
+	fmt.Println("Plane fitted by least square for group of dots V1 : ", PlaneLS1)
+	fmt.Println("Average distance between the vertices and the plane is : ", PlaneLS1.DistAvrPointPlane(V1.V), "  meters")
+	fmt.Print("\n")
+	fmt.Print("\n")
 
-	//// Set the bias
-	bias := 0.1
+	// fit the vertices in V2 to a plane using the 2 methods
+	PlaneRANSAC2, _, _ := calculator.PlaneFittingRANSAC(V2.V, 0.02, 0.98,500, 4 * len(V2.V))
+	fmt.Println("Plane fitted by RANSAC for group of dots V2 : ", PlaneRANSAC2)
+	fmt.Println("Average distance between the vertices and the plane is : ", PlaneRANSAC2.DistAvrPointPlane(V2.V), "  meters")
+	fmt.Print("\n")
+	PlaneLS2 := calculator.PlaneFittingLeastSquare(V2.V)
+	fmt.Println("Plane fitted by least square for group of dots V2 : ", PlaneLS2)
+	fmt.Println("Average distance between the vertices and the plane is : ", PlaneLS2.DistAvrPointPlane(V2.V), "  meters")
+	fmt.Print("\n")
+	fmt.Print("\n")
 
-	fmt.Println("The percentage of the points in V1 that fit the plane with the bias of ", bias, " m.")
-	fmt.Println("\t p1 : ", p1.IfZonebelongto(V1, bias))
-	fmt.Println("\t p2 : ", p2.IfZonebelongto(V1, bias))
-	fmt.Println("The percentage of the points in V2 that fit the plane with the bias of ", bias, " m.")
-	fmt.Println("\t p1 : ", p1.IfZonebelongto(V2, bias))
-	fmt.Println("\t p2 : ", p2.IfZonebelongto(V2, bias))
-	fmt.Println("The percentage of the points in V3 that fit the plane with the bias of ", bias, " m.")
-	fmt.Println("\t p1 : ", p1.IfZonebelongto(V3, bias))
-	fmt.Println("\t p2 : ", p2.IfZonebelongto(V3, bias))*/
+	// fit the vertices in V3 to a plane using the 2 methods
+	PlaneRANSAC3, _, _ := calculator.PlaneFittingRANSAC(V3.V, 0.02, 0.98,500, 4 * len(V3.V))
+	fmt.Println("Plane fitted by RANSAC for group of dots V3 : ", PlaneRANSAC3)
+	fmt.Println("Average distance between the vertices and the plane is : ", PlaneRANSAC3.DistAvrPointPlane(V3.V), "  meters")
+	fmt.Print("\n")
+	PlaneLS3 := calculator.PlaneFittingLeastSquare(V3.V)
+	fmt.Println("Plane fitted by least square for group of dots V3 : ", PlaneLS3)
+	fmt.Println("Average distance between the vertices and the plane is : ", PlaneLS3.DistAvrPointPlane(V3.V), "  meters")
+	fmt.Print("\n")
+	fmt.Print("\n")
 
-	//
-	//// Create the plane
-	//p := calculator.New_n(99, 99, -1.73, 0, 0, -1)
+	// compute the angle formed by the plane from V1 and the plane from V2
+	fmt.Println("The angle formed by the plane representing V2 and the one representing V1 (RANSAC) is : ", mymath.VectorsAngle(PlaneRANSAC1.A, PlaneRANSAC1.B, PlaneRANSAC1.C, PlaneRANSAC2.A, PlaneRANSAC2.B, PlaneRANSAC2.C))
+	fmt.Print("\n")
+	fmt.Println("The angle formed by the plane representing V2 and the one representing V1 (LS) is : ", mymath.VectorsAngle(PlaneLS1.A, PlaneLS1.B, PlaneLS1.C, PlaneLS2.A, PlaneLS2.B, PlaneLS2.C))
+	fmt.Print("\n")
+	fmt.Print("\n")
 
+	// compute the angle formed by the plane from V1 and the plane from V3
+	fmt.Println("The angle formed by the plane representing V3 and the one representing V1 (RANSAC) is : ", mymath.VectorsAngle(PlaneRANSAC1.A, PlaneRANSAC1.B, PlaneRANSAC1.C, PlaneRANSAC3.A, PlaneRANSAC3.B, PlaneRANSAC3.C))
+	fmt.Print("\n")
+	fmt.Println("The angle formed by the plane representing V3 and the one representing V1 (LS) is : ", mymath.VectorsAngle(PlaneLS1.A, PlaneLS1.B, PlaneLS1.C, PlaneLS3.A, PlaneLS3.B, PlaneLS3.C))
+	fmt.Print("\n")
+	fmt.Print("\n")
 
-	//dist, belon := p.Ifbelongto(vertex[V].Ply_x, vertex[V].Ply_y, vertex[V].Ply_z, bias)
-	//log.Println("Testing with the file <", filename, ">")
-	//log.Println("Testing point: ", vertex[V], ". and the plane ", p, ". Distance tolerated : ", bias, " m.")
-	//log.Println("Distance between the point and the plane : ", dist , "m\t", "Whether the point belongs to the plane :", belon)
-	//log.Print("\n\n")
+	// compute the angle formed by the plane from V2 and the plane from V3
+	fmt.Println("The angle formed by the plane representing V3 and the one representing V2 (RANSAC) is : ", mymath.VectorsAngle(PlaneRANSAC2.A, PlaneRANSAC2.B, PlaneRANSAC2.C, PlaneRANSAC3.A, PlaneRANSAC3.B, PlaneRANSAC3.C))
+	fmt.Print("\n")
+	fmt.Println("The angle formed by the plane representing V3 and the one representing V2 (LS) is : ", mymath.VectorsAngle(PlaneLS2.A, PlaneLS2.B, PlaneLS2.C, PlaneLS3.A, PlaneLS3.B, PlaneLS3.C))
 }

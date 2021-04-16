@@ -1,6 +1,6 @@
 package plyfile
 
-import "C"
+//import "C"
 import (
 	"bufio"
 	"bytes"
@@ -25,7 +25,7 @@ const (
 	/* scalar data types supported by PLY format */
 	PLY_START_TYPE = 0
 	PLY_CHAR       = 1
-	PLY_SHORT      = 2	// int16
+	PLY_SHORT      = 2 // int16
 	PLY_INT        = 3
 	PLY_UCHAR      = 4
 	PLY_USHORT     = 5
@@ -60,14 +60,14 @@ type PlyProperty struct {
 
 func New_property(name string, et int, it int, offs int, il int, ce int, ci int, co int) *PlyProperty {
 	return &PlyProperty{
-		Name:    name,
-		External_type: et,
-		Internal_type: it,
-		Offset: offs,
-		Is_list: il,
+		Name:           name,
+		External_type:  et,
+		Internal_type:  it,
+		Offset:         offs,
+		Is_list:        il,
 		Count_external: ce,
 		Count_internal: ci,
-		Count_offset: co,
+		Count_offset:   co,
 	}
 }
 
@@ -90,26 +90,26 @@ func New_element(name string, num int, props []PlyProperty) *PlyElement {
 
 // description of an .ply file and its constructor
 type PlyFile struct {
-	name string
-	fp	*os.File			// file pointer
-	file_type int			// 1 : ascii; 3 : binary little endian; 2 : binary big endian
-	header_vol int			// number of bytes occupied bt the header
-	version	float32			// version number of file
-	elems []PlyElement      // list of elements
-	comments []string       // list of comments
-	obj_info []string		// list of oject ifo
+	name       string
+	fp         *os.File     // file pointer
+	file_type  int          // 1 : ascii; 3 : binary little endian; 2 : binary big endian
+	header_vol int          // number of bytes occupied bt the header
+	version    float32      // version number of file
+	elems      []PlyElement // list of elements
+	comments   []string     // list of comments
+	obj_info   []string     // list of oject ifo
 }
 
 func New_file(name string, fp *os.File, file_type int, hv int, version float32, elems []PlyElement, comments []string, obj_info []string) *PlyFile {
 	return &PlyFile{
-		name: name,
-		fp: fp,
-		file_type: file_type,
+		name:       name,
+		fp:         fp,
+		file_type:  file_type,
 		header_vol: hv,
-		version: version,
-		elems: elems,
-		comments: comments,
-		obj_info: obj_info,
+		version:    version,
+		elems:      elems,
+		comments:   comments,
+		obj_info:   obj_info,
 	}
 }
 
@@ -248,7 +248,7 @@ func PlyGetElementDescription(plyfile *PlyFile, element_name string) ([]PlyPrope
 }
 
 /* [This function is useless since we parse the header of the pyl file automatically]
-	The original function : PlyGetProperty gets a property of an element that should be returned with a call to PlyGetElement. Note that PlyGetProperty must be called before PlyGetElement, and can be called multiple times (for each PlyProperty an element contains). */
+The original function : PlyGetProperty gets a property of an element that should be returned with a call to PlyGetElement. Note that PlyGetProperty must be called before PlyGetElement, and can be called multiple times (for each PlyProperty an element contains). */
 func PlyGetProperty(plyfile *PlyFile, elem_name string, prop PlyProperty) {
 	return
 }
@@ -290,7 +290,8 @@ func ReadPLYListInt32(ptr uintptr, num_elems int) []int32 {
 
 	var tmpSlice = make([]byte, numBytes)
 	for i := 0; i < len(tmpSlice); i++ {
-		tmpSlice[i] = byte(*(*C.char)(unsafe.Pointer(ptr)))
+		//tmpSlice[i] = byte(*(*C.char)(unsafe.Pointer(ptr)))
+		tmpSlice[i] = *(*byte)(unsafe.Pointer(ptr))
 		ptr++
 	}
 
