@@ -5,6 +5,7 @@ import (
 	"../reader"
 	"gonum.org/v1/gonum/mat"
 	"log"
+	"math"
 	"math/rand"
 	"time"
 )
@@ -20,7 +21,7 @@ type Point struct {
 	X, Y, Z float64
 }
 
-/* ZoneCritical represents a subset of the vertices (zone d'intérêt), defined by their coordinates on X and Y axes */
+/* ZoneCritical represents a subset of the vertices (zone d'intérêt), defined by their coordinates on X and Y axiss */
 type ZoneCritical struct {
 	Xmin, Xmax, Ymin, Ymax float64
 	V                      []reader.VertexFormat
@@ -70,6 +71,35 @@ func New_p_by_vertices(v1, v2, v3 reader.VertexFormat) (*Plane) {
 	}
 }
 
+/* GetBoundaries Get the minimal and the maximal values from the data to help define the critical zones
+ * @param vlist : A slice of the vertices
+ * @return minima and maxima of coordiantes on X, Y and Z axiss
+ */
+func GetBoundaries(vlist []reader.VertexFormat) (float64, float64, float64, float64, float64, float64, float64, float64, float64) {
+	xmin, xmax, ymin, ymax, zmin, zmax := 0., 0., 0., 0., 0., 0.
+	for _, vertex := range vlist {
+		if vertex.Ply_x < xmin {
+			xmin = vertex.Ply_x
+		} else if vertex.Ply_x > xmax {
+			xmax = vertex.Ply_x
+		}
+		if vertex.Ply_y < ymin{
+			ymin = vertex.Ply_y
+		} else if vertex.Ply_y > ymax {
+			ymax = vertex.Ply_y
+		}
+		if vertex.Ply_z < zmin{
+			zmin = vertex.Ply_z
+		} else if vertex.Ply_z > zmax {
+			zmax = vertex.Ply_z
+		}
+	}
+	xrange := math.Abs(xmax - xmin)
+	yrange := math.Abs(ymax - ymin)
+	zrange := math.Abs(zmax - zmin)
+	return xmin, xmax, xrange, ymin, ymax, yrange, zmin, zmax, zrange
+}
+
 /* Ifbelongto Decides if a vertex P(x0, y0, z0) belongs to the plane
  * @param X, y, z : coordinates of the vertex to test, A tolerance of the distance which decide whether the vertex belongs to the plane or not
  * @return The distance between the point and the plane,
@@ -97,7 +127,7 @@ func (plane *Plane) DistAvrPointPlane(vlist []reader.VertexFormat) float64 {
 	return d / float64(n)
 }
 
-/* New_z Creates A new critical zone from A .ply file, by X and y axes
+/* New_z Creates A new critical zone from A .ply file, by X and y axiss
  * @param Intervals of X, y to which defines the critic zone.
  * @return The pointer which points to the critic zone
  */
@@ -213,11 +243,11 @@ func PlaneFittingLeastSquare(vlist []reader.VertexFormat) *Plane {
 	return P
 }
 
-/* Fit several points to X plane, using the RANSAC method
+/* PlaneFittingRANSAC Fit several points to X plane, using the RANSAC method
  * @param vlist : A slice of vertices; ThresholdInline : the difference tolerated when calculating the inlines; ScoreMin : the minimal score which will stop the recurrence; RecurMn : minimal times of recurrence; RecurMax : maximal times of recurrence
- * @return The standard equation of the plane; Index of the points composing that plane
+ * @return The standard equation of the plane; Index of the points composing that plane; the percentage of the inline vertices
  */
-func PlaneFittingRANSAC(vlist []reader.VertexFormat, ThresholdInline float64, ScoreMin float64, RecurMin int, RecurMax int) (*Plane, []int, float64) {
+func PlaneFittingRANSAC(vlist []reader.VertexFormat, minDistance float64, minScore float64, minNforLoop int, maxNforLoop int) (*Plane, []int, float64) {
 	n := len(vlist)
 	highscore := 0.
 	BestVertices := make([]int, 3)
@@ -245,7 +275,7 @@ func PlaneFittingRANSAC(vlist []reader.VertexFormat, ThresholdInline float64, Sc
 		// calculate the inline points for the plane formed by these 3 vertices (if the distance to the plane is inferior to the given threshold, this point would be regarded as inline) and take the score
 		p := New_p_by_vertices(vlist[p1], vlist[p2], vlist[p3])
 		for _, vertex := range vlist {
-			if mymath.DistPointPlane(vertex.Ply_x, vertex.Ply_y, vertex.Ply_z, p.A, p.B, p.C, p.D) < ThresholdInline {
+			if mymath.DistPointPlane(vertex.Ply_x, vertex.Ply_y, vertex.Ply_z, p.A, p.B, p.C, p.D) < minDistance {
 				InlineCount += 1
 			}
 		}
@@ -262,14 +292,11 @@ func PlaneFittingRANSAC(vlist []reader.VertexFormat, ThresholdInline float64, Sc
 		}
 
 		// quit condition : the high score surpass the given parameter, or the number of iteration reach the maximal given in parameter too
-		if NumIteration > RecurMin && highscore > ScoreMin || NumIteration >= RecurMax {
+		if NumIteration > minNforLoop && highscore > minScore || NumIteration >= maxNforLoop {
 			break
 		}
 	}
 
 	return P, BestVertices, highscore
 }
-
-
-
 

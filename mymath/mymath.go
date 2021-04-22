@@ -13,7 +13,7 @@ func DistPointPlane(x, y, z, a, b, c, d float64) float64 {
 	return math.Abs(float64( x * a + y * b + z * c + d))/ math.Sqrt(float64(a * a + b * b + c * c))
 }
 
-// VectorsAngle calculate angles formed by 2 3-d vectors，oput : [0, 1/2 pi]
+// VectorsAngle calculate angles formed by 2 3-d vectors，output in in the interval [0, 1/2 * pi]
 func VectorsAngle(V1_x, V1_y, V1_z , V2_x, V2_y, V2_z float64) float64 {
 	a := V1_x * V2_x + V1_y * V2_y + V1_z * V2_z
 	b := math.Sqrt(math.Pow(V1_x,2) + math.Pow(V1_y,2) + math.Pow(V1_z,2)) * math.Sqrt(math.Pow(V2_x,2) + math.Pow(V2_y,2) + math.Pow(V2_z,2))
@@ -28,6 +28,15 @@ func VectorsAngle(V1_x, V1_y, V1_z , V2_x, V2_y, V2_z float64) float64 {
 
 func Dist3D(V1_x, V1_y, V1_z , V2_x, V2_y, V2_z float64) float64 {
 	return math.Sqrt(math.Pow(V1_x - V2_x,2) + math.Pow(V1_y - V2_y,2) + math.Pow(V1_z - V2_z,2))
+}
+
+func Average(slice []float64) float64 {
+	buff := 0.
+	for _, i := range slice {
+		buff += i
+	}
+	buff = buff / float64(len(slice))
+	return buff
 }
 
 func Minof3(a, b, c float64) float64 {
@@ -45,3 +54,17 @@ func Minof3(a, b, c float64) float64 {
 		return b
 	}
 }
+
+func ExistIntList(list []int, val int) bool {
+	if len(list) == 0 {
+		return false
+	}
+	for _, i := range list {
+		if i == val {
+			return true
+		}
+	}
+	return false
+}
+
+
