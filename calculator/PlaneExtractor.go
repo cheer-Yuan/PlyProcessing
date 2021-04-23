@@ -264,7 +264,10 @@ func PlaneConsecRANSAC(vlist []reader.VertexFormat, minDistance float64, minScor
 	}
 
 	fmt.Println("The number of vertex unprocessed : ", len(vlist) )
+	fmt.Println("The number of planes generated : ", len(planes), "They are : ")
+	for _, i := range planes {
+		fmt.Println(i)
+	}
 
 	return planes
 }
-

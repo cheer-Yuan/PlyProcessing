@@ -171,9 +171,7 @@ func TestExp3(t *testing.T) {
 	// Reading the file using adopted library plyfile
 	vlist, _ := reader.ReadPLY(filename)
 
-	P := calculator.PlaneSeqRANSAC(vlist, 0.1, 50000, 30000, 200)
-
-	fmt.Println(len(P))
+	P := calculator.PlaneSeqRANSAC(vlist, 0.1, 50000, 16000, 200)
 
 	// compute the angle formed by the plane from V1 and the plane from V2
 	fmt.Println("The angle formed by the plane representing V2 and the one representing V1 is : ", mymath.VectorsAngle(P[0].A, P[0].B, P[0].C, P[1].A, P[1].B, P[1].C))
@@ -197,25 +195,22 @@ func TestExp4(t *testing.T) {
 	// Reading the file using adopted library plyfile
 	vlist, _ := reader.ReadPLY(filename)
 
-	P := calculator.PlaneConsecRANSAC(vlist, 0.005, 0.1, 30000, 0.1, 1000, 500, 500)
-
-	fmt.Println(len(P))
+	P := calculator.PlaneConsecRANSAC(vlist, 0.01, 0.1, 10000, 0.1, 1000, 500, 500)
 
 	// compute all the angles formed by the planes one and another
 	for i := 0; i < len(P) - 1; i++ {
 		for j := i + 1; j < len(P); j++ {
 			fmt.Println("The angle formed by the plane representing V", i, " and the one representing V", j, " is : ", mymath.VectorsAngle(P[i].A, P[i].B, P[i].C, P[j].A, P[j].B, P[j].C))
-
 		}
 	}
 
-	// A photo of the desk, more complex than the former, including boxes, windows, file containers...
+	// A photo of the desk, more complex than the former one, in which there are boxes, windows, file containers and etc. ...
 	filename2 := "./data/desk_static_complex_L515/2021-04-22-12:41:26-.ply"
 
 	// Reading the file using adopted library plyfile
 	vlist2, _ := reader.ReadPLY(filename2)
 
-	P2 := calculator.PlaneConsecRANSAC(vlist2, 0.005, 0.1, 30000, 0.1, 1000, 500, 500)
+	P2 := calculator.PlaneConsecRANSAC(vlist2, 0.01, 0.1, 10000, 0.1, 1000, 500, 500)
 
 	fmt.Println(len(P2))
 

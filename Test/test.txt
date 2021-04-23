@@ -1,43 +1,63 @@
-Vertex read :  268410
-Surfaces read :  527566
-268410 527566
-{82011 82638 82012}
-Number of points in V1 :  22367
-Number of points in V2 :  32067
-Number of points in V3 :  71370
-{-0.37068903 0.07805483 -1.0332501 83 92 83} {-0.35112998 0.053806666 -1.0417501 69 78 58} {-0.20787293 -0.13844094 -0.37225002 61 63 54}
-{0.219272 -0.12340906 -0.37325 82 71 62} {0.24496885 -0.08836637 -0.92 122 136 138} {0.22706614 -0.11235675 -0.93675005 123 137 141}
-The percentage of the points in V1 that fit the plane with the bias of  0.1  m.
-         p1 :  0.7971118165154022
-         p2 :  0
-The percentage of the points in V2 that fit the plane with the bias of  0.1  m.
-         p1 :  0
-         p2 :  0.8280163407864783
-The percentage of the points in V3 that fit the plane with the bias of  0.1  m.
-         p1 :  0.2769931343701835
-         p2 :  0.1614123581336696
-
-{-0.39679235 -0.03132078 -1.014 76 88 80} {-0.31017056 -0.121205576 -1.0485001 74 78 71} {-0.25549832 -0.14149703 -0.35750002 78 62 57}
-{0.30104965 0.063337475 -0.86325 135 146 146} {0.34998852 -0.1350528 -0.81575006 94 101 95} {0.17037746 -0.12988123 -0.2655 86 72 64}
-The percentage of the points in V1 that fit the plane with the bias of  0.1  m.
-         p1 :  0.7656815844771315
-         p2 :  4.470872267179327e-05
-The percentage of the points in V2 that fit the plane with the bias of  0.1  m.
-         p1 :  0
-         p2 :  0.6884335921664015
-The percentage of the points in V3 that fit the plane with the bias of  0.1  m.
-         p1 :  0.16627434496286955
-         p2 :  0.13874176824996498
-
-{-0.26427212 -0.20776553 -1.0842501 74 78 71} {-0.39293784 -0.13207883 -1.00975 30 54 26} {-0.2569165 0.1253018 -1.093 86 98 90}
-{0.16316745 -0.12773094 -0.32450002 70 73 72} {0.16148783 -0.12707612 -0.3745 83 76 70} {0.30816954 0.01261941 -0.85700005 124 137 136}
-The percentage of the points in V1 that fit the plane with the bias of  0.1  m.
-         p1 :  0.6586489024008584
-         p2 :  0
-The percentage of the points in V2 that fit the plane with the bias of  0.1  m.
-         p1 :  0
-         p2 :  0.7567904699535348
-The percentage of the points in V3 that fit the plane with the bias of  0.1  m.
-         p1 :  0.1645369202746252
-         p2 :  0.421395544346364
-
+=== RUN   TestExp4
+Reading PLY file ...
+element vertex 354448
+property x
+property y
+property z
+property red
+property green
+property blue
+element face 696396
+property vertex_indices
+Redundant plane detected
+Redundant plane detected
+The number of vertex unprocessed :  11277
+The number of planes generated :  5
+{-0.6109760361825912 0.2142026837093025 -1 -0.6925411620820137}
+{1.9847225327343154 0.3988833089950815 -1 -1.2457432180620696}
+{0.25551384314376996 -3.789160046326947 -1 -1.6809604297910756}
+{-0.6113190056914704 0.21464591057216595 -1 -0.6926309559298097}
+{1.9849497517149286 0.39879726618818145 -1 -1.2457835663636687}
+5
+The angle formed by the plane representing V 0  and the one representing V 1  is :  1.5234986805096025
+The angle formed by the plane representing V 0  and the one representing V 2  is :  1.5639053432506056
+The angle formed by the plane representing V 0  and the one representing V 3  is :  0.0004185722521030666
+The angle formed by the plane representing V 0  and the one representing V 4  is :  1.523444025010533
+The angle formed by the plane representing V 1  and the one representing V 2  is :  1.5703104308505496
+The angle formed by the plane representing V 1  and the one representing V 3  is :  1.5233213322725074
+The angle formed by the plane representing V 1  and the one representing V 4  is :  6.999531131079983e-05
+The angle formed by the plane representing V 2  and the one representing V 3  is :  1.5642844575452612
+The angle formed by the plane representing V 2  and the one representing V 4  is :  1.5703537817656876
+The angle formed by the plane representing V 3  and the one representing V 4  is :  1.5232666601797513
+Reading PLY file ...
+element vertex 176472
+property x
+property y
+property z
+property red
+property green
+property blue
+element face 338254
+property vertex_indices
+Redundant plane detected
+The number of vertex unprocessed :  37619
+The number of planes generated :  5
+{0.9300920085693778 15.934858271149382 -1 1.5816912671470682}
+{-1.2356361640935396 0.07992320806350559 -1 -1.460503165451618}
+{-0.9329675954354538 0.06446837882431404 -1 -0.5130281591379035}
+{-1.2476514133772056 0.1679962551331813 -1 -1.4585853595529856}
+{-0.012425076527469603 -3.0885913998688563 -1 -0.6344754523856483}
+5
+The angle formed by the plane representing V 0  and the one representing V 1  is :  1.5266131944839907
+The angle formed by the plane representing V 0  and the one representing V 2  is :  1.517817502466482
+The angle formed by the plane representing V 0  and the one representing V 3  is :  1.4727686992571223
+The angle formed by the plane representing V 0  and the one representing V 4  is :  0.37947880395844624
+The angle formed by the plane representing V 1  and the one representing V 2  is :  0.1395463823120191
+The angle formed by the plane representing V 1  and the one representing V 3  is :  0.0546494242870208
+The angle formed by the plane representing V 1  and the one representing V 4  is :  1.4215116393175427
+The angle formed by the plane representing V 2  and the one representing V 3  is :  0.15505488174475346
+The angle formed by the plane representing V 2  and the one representing V 4  is :  1.3869752225548486
+The angle formed by the plane representing V 3  and the one representing V 4  is :  1.4755032249785052
+--- PASS: TestExp4 (2.19s)
+PASS
+ok      command-line-arguments  2.191s
