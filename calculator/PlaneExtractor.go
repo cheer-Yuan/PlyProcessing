@@ -235,20 +235,23 @@ func PlaneConsecRANSAC(vlist []reader.VertexFormat, minDistance float64, minScor
 			for index, planeObtained := range planes {
 				// first check : if the angle formed by the two planes are inferior to the given value
 				// second check : if the average distance from the points forming the old plane and the new plane is inferior to the given value
-				if mymath.VectorsAngle(planeObtained.A, planeObtained.B, planeObtained.C, newP.A, newP.B, newP.C) < maxAnglePlanes && newP.DistAvrPointPlane(vetexInline) < minDistance {
+				if mymath.VectorsAngle(planeObtained.A, planeObtained.B, planeObtained.C, newP.A, newP.B, newP.C) < maxAnglePlanes && planeObtained.DistAvrPointPlane(vetexInline) < 4 * minDistance {
+					//&& newP.DistAvrPointPlane(vetexInline) <	16 * minDistance
 					// the two planes will be considered the same, we re-adjust de plane with all vertices from the two slices
 					fmt.Println("Redundant plane detected")
 					newP = PlaneFittingLeastSquare(append(vetexInline, vofPlanes[index]...))
 					vofPlanes[index] = append(vofPlanes[index], vetexInline...)
+					planes[index] = *newP
 					vetexInline = nil
-					break
 				}
 			}
 		}
 
-		// if vetexInline != nil means that no similar planes found, we add the new plane to the slice
-		planes = append(planes, *newP)
-		vofPlanes = append(vofPlanes, vetexInline)
+		// if vetexInline != nil (empty slice) means that no similar planes found, we add the new plane to the slice. Otherwise there was a similar plane
+		if vetexInline != nil {
+			planes = append(planes, *newP)
+			vofPlanes = append(vofPlanes, vetexInline)
+		}
 
 		// remove the inline points from the original slice
 		for i, index := range indexInline {

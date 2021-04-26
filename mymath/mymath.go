@@ -67,4 +67,21 @@ func ExistIntList(list []int, val int) bool {
 	return false
 }
 
+func IntMean(list []int) float64 {
+	sum := 0
+	for _, i := range list {
+		sum += i
+	}
+	return float64(sum) / float64(len(list))
+}
+
+func IntVariance(list []int, mean float64) float64 {
+	sum := 0.
+	for _, i := range list {
+		sum += (float64(i) - mean) * (float64(i) - mean)
+	}
+	return sum / (float64(len(list) - 1))
+}
+
+
 

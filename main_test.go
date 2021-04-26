@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"testing"
+	"time"
 )
 
 func TestExp1(t *testing.T) {
@@ -190,12 +191,12 @@ func TestExp3(t *testing.T) {
 
 func TestExp4(t *testing.T) {
 	// this ply file is composed by 3 surfaces : the cabinet, the shredder and the floor, perpendicular one to another (please check the .png file under the same directory)
-	filename := "./data/c_p_g_ofD455_highview/2021-04-16-17:00:24-.ply"
+	filename := "./data/c_p_g_ofD455_highview/2021-04-16-17_00_24-.ply"
 
 	// Reading the file using adopted library plyfile
 	vlist, _ := reader.ReadPLY(filename)
 
-	P := calculator.PlaneConsecRANSAC(vlist, 0.01, 0.1, 10000, 0.1, 1000, 500, 500)
+	P := calculator.PlaneConsecRANSAC(vlist, 0.01, 0.1, 10000, 0.05, 10000, 500, 500)
 
 	// compute all the angles formed by the planes one and another
 	for i := 0; i < len(P) - 1; i++ {
@@ -205,12 +206,12 @@ func TestExp4(t *testing.T) {
 	}
 
 	// A photo of the desk, more complex than the former one, in which there are boxes, windows, file containers and etc. ...
-	filename2 := "./data/desk_static_complex_L515/2021-04-22-12:41:26-.ply"
+	filename2 := "./data/desk_static_complex_L515/2021-04-22-12_41_26-.ply"
 
 	// Reading the file using adopted library plyfile
 	vlist2, _ := reader.ReadPLY(filename2)
 
-	P2 := calculator.PlaneConsecRANSAC(vlist2, 0.01, 0.1, 10000, 0.1, 1000, 500, 500)
+	P2 := calculator.PlaneConsecRANSAC(vlist2, 0.01, 0.1, 10000, 0.05, 10000, 500, 500)
 
 	fmt.Println(len(P2))
 
@@ -221,4 +222,71 @@ func TestExp4(t *testing.T) {
 
 		}
 	}
+}
+
+func TestForreport1(t *testing.T) {
+	var start time.Time
+	var elapsed time.Duration
+	no3surface := 0
+	anglesfause := 0
+
+	for i := 0; i < 100; i++ {
+		// this ply file is composed by 3 surfaces : the cabinet, the shredder and the floor, perpendicular one to another (please check the .png file under the same directory)
+		filename := "./data/c_p_g_ofD455_highview/2021-04-16-17_00_24-.ply"
+
+
+
+		// Reading the file using adopted library plyfile
+		vlist, _ := reader.ReadPLY(filename)
+
+		start = time.Now()
+
+		P := calculator.PlaneConsecRANSAC(vlist, 0.01, 0.1, 10000, 0.1, 10000, 500, 500)
+
+		elapsed += time.Since(start)
+
+		if len(P) != 3 {
+			no3surface += 1
+		}
+
+		for i := 0; i < len(P) - 1; i++ {
+			for j := i + 1; j < len(P); j++ {
+				if mymath.VectorsAngle(P[i].A, P[i].B, P[i].C, P[j].A, P[j].B, P[j].C) < 1.5 {
+					anglesfause += 1
+				}
+			}
+		}
+	}
+
+	fmt.Println("Time used : ", elapsed)
+	fmt.Println("Times doesnt detected 3 planes : ", no3surface)
+	fmt.Println("Angles < 1.5 : ", anglesfause)
+}
+
+func TestForreport2(t *testing.T) {
+	var start time.Time
+	var elapsed time.Duration
+	numSurface := make([]int, 0)
+
+	for i := 0; i < 10; i++ {
+		// this ply file is composed by 3 surfaces : the cabinet, the shredder and the floor, perpendicular one to another (please check the .png file under the same directory)
+		filename := "./data/office_and_window_complex_D455/2021-04-22-12_08_45-.ply"
+
+
+
+		// Reading the file using adopted library plyfile
+		vlist, _ := reader.ReadPLY(filename)
+
+		start = time.Now()
+
+		P := calculator.PlaneConsecRANSAC(vlist, 0.01, 0.1, 10000, 0.1, 10000, 500, 500)
+
+		elapsed += time.Since(start)
+
+		numSurface = append(numSurface, len(P))
+	}
+
+	fmt.Println("Time used : ", elapsed)
+	fmt.Println("Mean num surface : ", mymath.IntMean(numSurface))
+	fmt.Println("Variance surface < 1.5 : ", mymath.IntVariance(numSurface, mymath.IntMean(numSurface)))
 }
