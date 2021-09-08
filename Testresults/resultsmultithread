@@ -1,0 +1,52 @@
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./svd641time
+Time used :   16.879893836s
+
+2thr
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :   12.181827878s
+1thr
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :   17.152219054s
+4thr
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :   9.214717894s
+16thr
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :   7.113478262s
+8thr
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :   7.121341815s
+
+
+
+
+t16 -> crash
+
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc2t1
+Time used :   4m36.814826987s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc2t2
+Time used :   4m23.025241431s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc2t4
+Time used :   4m3.718009669s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc2t8
+Time used :   4m18.45683169s
+
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc4t1
+Time used :   4m59.582690284s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc4t2
+Time used :   4m25.941719284s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc4t4
+Time used :   4m9.669423434s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc4t8
+Time used :   4m8.255240658s
+
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc1t1
+Time used :   4m1.448108684s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc1t2
+Time used :   3m44.588153498s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc1t4
+Time used :   3m42.098340259s
+pi@raspberrypi:~/Desktop/Stages/dataprocessing $ ./armc1t8
+Time used :   3m44.633939134s
+
+

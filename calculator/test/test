@@ -1,0 +1,22 @@
+loop number = 20
+BenchmarkPlaneMonoFittingRANSAC
+		_, _, _ = calculator.PlaneMonoFittingRANSAC(vlist, 0.01, 0.5, 10, 100)
+1000000000               0.06514 ns/op
+PASS
+ok      command-line-arguments  2.041s
+
+		_, _, _ = calculator.PlaneMonoFittingRANSAC(vlist, 0.01, 0.9, 10, 100)
+1000000000               0.5829 ns/op
+PASS
+ok      command-line-arguments  23.254s
+1000000000               0.6941 ns/op
+PASS
+ok      command-line-arguments  60.913s
+
+
+BenchmarkPlaneMonoFittingRANSAC32
+		_, _, _ = calculator.PlaneMonoFittingRANSAC32(vlist, 0.01, 0.9, 10, 100)
+1000000000               0.6955 ns/op
+PASS
+ok      command-line-arguments  30.205s
+

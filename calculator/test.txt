@@ -1,0 +1,85 @@
+
+// Why here ??? 0.016？
+1000000000               0.01396 ns/op
+--- BENCH: BenchmarkDistPointPlaneS-8
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+    PlaneExtractor_test.go:46: Result :  32704
+        ... [output truncated]
+PASS
+ok      command-line-arguments  4.693s
+
+1000000000               0.01708 ns/op
+--- BENCH: BenchmarkDistPointPlaneP-8 (with nProc = 1)
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+        ... [output truncated]
+PASS
+ok      command-line-arguments  4.810s
+
+1000000000               0.009539 ns/op
+--- BENCH: BenchmarkDistPointPlaneP-8 (with nProc = 2)
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+        ... [output truncated]
+PASS
+ok      command-line-arguments  4.725s
+
+
+1000000000               0.007630 ns/op
+--- BENCH: BenchmarkDistPointPlaneP-8 (with nProc = 4)
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+        ... [output truncated]
+PASS
+ok      command-line-arguments  4.730s
+
+
+1000000000               0.006452 ns/op
+--- BENCH: BenchmarkDistPointPlaneP-8
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+    PlaneExtractor_test.go:59: Result :  32704
+        ... [output truncated]
+PASS
+ok      command-line-arguments  4.724s
+
+

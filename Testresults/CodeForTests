@@ -1,0 +1,205 @@
+Adapt these codes for various tests
+
+//version64and32
+
+//func main() {
+//	f, _ := os.OpenFile("./pprof/32and64/cpu.pprof", os.O_CREATE|os.O_RDWR, 0644)
+//	defer f.Close()
+//	pprof.StartCPUProfile(f)
+//	defer pprof.StopCPUProfile()
+//
+//	flag.Parse()
+//	// open the file and set the logger
+//	file, _ := os.OpenFile("./results.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+//	fileAngles, _ := os.OpenFile("./angles.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+//	defer file.Close()
+//	defer fileAngles.Close()
+//	writer := io.Writer(file)
+//	log.SetOutput(writer)
+//	log.SetFlags(log.Lmicroseconds)
+//
+//	// scan the folder
+//	files := calculator.ListDir(location)
+//	//var listNumPlanes []int
+//
+//	// compose the filename
+//	log.Println(location + files[0])
+//
+//	var t1 time.Duration
+//
+//	var valAngles []float64
+//	var totalPlanes []int
+//
+//	//// put 100 files in the folder to be processed
+//	//for i := 0; i < len(files); i++ {
+//	//	var valAngles []float32
+//	//	// read data
+//	//	vlist, _ := reader.ReadPLYMono32Huge(location + files[i])
+//	//	log.Println(vlist[1])
+//	//	//// add noise
+//	//	//reader.AddNoise(vlist, 0.01, 0.5, 1.5)
+//	//
+//	//	// compute planes
+//	//	//Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 200, 0.15, 1000, 1000, 500)
+//	//	Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC32SVD(vlist, 0.01, 0.1, 200, 0.3, 2000, 1000, 500)
+//	//	//reader.AddNoise()
+//	//	// output of the data
+//	//	log.Println("The number of planes detected : ", numPlanes)
+//	//	for _, i := range Planes {
+//	//		log.Println(i)
+//	//	}
+//	//	log.Println("\n")
+//	//	//compute the angles formed by this group of planes
+//	//	valAngles = append(valAngles, calculator.AngleOfPlanes(Planes)...)
+//	//	log.Println(valAngles)
+//	//	log.Println("\n")
+//	//}
+//
+//	for count := 0; count < 1; count++ {
+//		for i := 0; i < len(files); i++ {
+//			t0 := time.Now()
+//
+//			// read data
+//			vlist, _ := reader.ReadPLYMono64(location + files[i])
+//			//// add noise
+//			//reader.AddNoise(vlist, 0.01, 0.5, 1.5)
+//
+//			// compute planes
+//			//Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 200, 0.15, 1000, 1000, 500)
+//			Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC64SVD(vlist, 0.01, 0.1, 200, 0.3, 2000, 1000, 500)
+//			//reader.AddNoise()
+//			// output of the data
+//			t1 += time.Since(t0)
+//			log.Println("The number of planes detected : ", numPlanes)
+//			for _, i := range Planes {
+//				log.Println(i)
+//			}
+//			log.Println("\n")
+//			//compute the angles formed by this group of planes
+//			valAngles = append(valAngles, calculator.AngleOfPlanes64(Planes)...)
+//			totalPlanes = append(totalPlanes, numPlanes)
+//			log.Println("\n")
+//		}
+//
+//		//// read data
+//		//vlist, _ := reader.ReadPLYMono32Huge1(location + files[i])
+//		//// add noise
+//		//reader.AddNoise(vlist, 0.01, 0.5, 1.5)
+//		//
+//		//t1 := time.Now()
+//		//
+//		//for i := 0; i < iterAngle; i++ {
+//		//	// compute planes
+//		//	//Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 200, 0.15, 1000, 1000, 500)
+//		//	Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC32SVD(vlist, 0.02, 0.1, 200, 0.15, 2000, 1000, 500)
+//		//	// output of the data
+//		//	log.Println("The number of planes detected : ", numPlanes)
+//		//	for _, i := range Planes {
+//		//		log.Println(i)
+//		//	}
+//		//	log.Println("\n")
+//		//	listNumPlanes = append(listNumPlanes, numPlanes)
+//		//
+//		//	// compute the angles formed by this group of planes
+//		//	valAngles = append(valAngles, calculator.AngleOfPlanes(Planes)...)
+//		//}
+//
+//		// distribution analyse
+//		//distribution := calculator.New_AnglesDistribution(valAngles)
+//		//fmt.Fprintln(fileAngles, distribution)
+//		//fmt.Fprintln(fileAngles, valAngles)
+//
+//		/*	// repeat the test for some times
+//			for i := 0; i < iterAngle; i++ {
+//				var wg sync.WaitGroup
+//				wg.Add(len(files))
+//				// modeProc new reader 32 bit
+//				for _, file := range files {
+//					go func(file string, location string, wg *sync.WaitGroup) {
+//						defer wg.Done()
+//
+//						// compose the filename
+//						log.Println(location + file)
+//						// read data
+//						vlist, _ := reader.ReadPLYMono32Huge1(location + file)
+//						// compute planes
+//						Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 200, 0.1, 1000, 2000, 500)
+//						// output of the data
+//						log.Println("The number of planes detected : ", numPlanes)
+//						for _, i := range Planes {
+//							log.Println(i)
+//						}
+//						log.Println("\n")
+//					}(file, location, &wg)
+//				}
+//				wg.Wait()
+//			}*/
+//
+//
+//	}
+//	fmt.Println("Time used :  ", t1)
+//}
+
+
+
+// compare svd and inverse, with added noises
+
+//func main() {
+//	flag.Parse()
+//	// open the file and set the logger
+//	file, _ := os.OpenFile("./results.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+//	fileAngles, _ := os.OpenFile("./angles.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+//	defer file.Close()
+//	defer fileAngles.Close()
+//	writer := io.Writer(file)
+//	log.SetOutput(writer)
+//	log.SetFlags(log.Lmicroseconds)
+//
+//	// scan the folder
+//	files := calculator.ListDir(location)
+//	//var listNumPlanes []int
+//
+//
+//	// compose the filename
+//	log.Println(location + files[0])
+//
+//
+//	var valAngles []float64
+//	var totalPlanes []int
+//	var totaltime time.Duration
+//
+//
+//	for count := 0; count < 100; count++ {
+//		for i := 0; i < len(files); i++ {
+//			// read data
+//			vlist, _ := reader.ReadPLYMono64(location + files[i])
+//			//// add noise
+//			//reader.AddNoise(vlist, 0.01, 0.5, 1.5)
+//
+//
+//
+//			// compute planes
+//			//Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 200, 0.15, 1000, 1000, 500)
+//			reader.AddNoise64(vlist, 0.04, 0.05, 0.1)
+//			t1 := time.Now()
+//			Planes, numPlanes, _ := calculator.PlaneMonoConsecRANSAC64(vlist, 0.005, 0.1, 50, 0.15, 1000, 2000, 500)
+//			totaltime += time.Since(t1)
+//			// output of the data
+//			log.Println("The number of planes detected : ", numPlanes)
+//			for _, i := range Planes {
+//				log.Println(i)
+//			}
+//			log.Println("\n")
+//			//compute the angles formed by this group of planes
+//			valAngles = append(valAngles, calculator.AngleOfPlanes64(Planes)...)
+//			totalPlanes = append(totalPlanes, numPlanes)
+//			log.Println("\n")
+//		}
+//	}
+//
+//	log.Println(totalPlanes)
+//	log.Println(valAngles)
+//
+//	//fmt.Println("Time used :  ", time.Since(t1))
+//	fmt.Println("Time used :  ", totaltime)
+//}

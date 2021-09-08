@@ -1,16 +1,11 @@
 package plyfile
 
-//import "C"
 import (
 	"bufio"
-	"bytes"
-	"encoding/binary"
-	"fmt"
 	"log"
 	"os"
 	"strconv"
 	"strings"
-	"unsafe"
 )
 
 // PLY definitions, for consistency with original test file
@@ -91,7 +86,7 @@ func New_element(name string, num int, props []PlyProperty) *PlyElement {
 // description of an .ply file and its constructor
 type PlyFile struct {
 	name       string
-	fp         *os.File     // file pointer
+	Fp         *os.File     // file pointer
 	file_type  int          // 1 : ascii; 3 : binary little endian; 2 : binary big endian
 	header_vol int          // number of bytes occupied bt the header
 	version    float32      // version number of file
@@ -103,7 +98,7 @@ type PlyFile struct {
 func New_file(name string, fp *os.File, file_type int, hv int, version float32, elems []PlyElement, comments []string, obj_info []string) *PlyFile {
 	return &PlyFile{
 		name:       name,
-		fp:         fp,
+		Fp:         fp,
 		file_type:  file_type,
 		header_vol: hv,
 		version:    version,
@@ -147,8 +142,10 @@ func PlyOpenForReading(filename string) (*PlyFile, []string) {
 		bytecount += vol_bytes
 
 		//indentify the end of the header
-		if lines[linecount][0:3] == "end" {
-			break
+		if len(lines[linecount]) > 3 {
+			if lines[linecount][0:3] == "end" {
+				break
+			}
 		}
 
 		linecount++
@@ -229,10 +226,10 @@ func PlyOpenForReading(filename string) (*PlyFile, []string) {
 	}
 
 	// positioning the file pointer for the next step
-	plyfile.fp.Close()
-	plyfile.fp, _ = os.Open(plyfile.name)
+	plyfile.Fp.Close()
+	plyfile.Fp, _ = os.Open(plyfile.name)
 	buf_trash := make([]byte, plyfile.header_vol)
-	_, _ = plyfile.fp.Read(buf_trash)
+	_, _ = plyfile.Fp.Read(buf_trash)
 
 	return plyfile, elem_names
 }
@@ -247,63 +244,16 @@ func PlyGetElementDescription(plyfile *PlyFile, element_name string) ([]PlyPrope
 	return nil, 0, 0
 }
 
-/* [This function is useless since we parse the header of the pyl file automatically]
-The original function : PlyGetProperty gets a property of an element that should be returned with a call to PlyGetElement. Note that PlyGetProperty must be called before PlyGetElement, and can be called multiple times (for each PlyProperty an element contains). */
-func PlyGetProperty(plyfile *PlyFile, elem_name string, prop PlyProperty) {
-	return
-}
-
 func LocateElement(plyfile *PlyFile, size uintptr) {
 	// determine the start of the element to read
 	for elem_index := 0; elem_index < len(plyfile.elems); elem_index++ {
 		if plyfile.elems[elem_index].marker != 1 {
 			buff := make([]byte, size)
 			for index := 0; index < plyfile.elems[elem_index].num; index++ {
-				_, _ = plyfile.fp.Read(buff)
+				_, _ = plyfile.Fp.Read(buff)
 			}
 		}
 	}
-}
-
-/* May not use in the version of no-binding
-ByteSliceToPointer takes a byte slice containing a pointer (necessary for passing pointers back and forth to C programs as part of a struct) and reads the pointer, returning it as a uintptr. Note that typically this function will be called on byte arrays, and slicing the array ('[:]') when passing it to the function will be necessary. */
-func ByteSliceToPointer(bslice []byte) (ptr uintptr) {
-	size := unsafe.Sizeof(ptr)
-	switch size {
-	case 4:
-		ptr = uintptr(binary.LittleEndian.Uint32(bslice))
-	case 8:
-		ptr = uintptr(binary.LittleEndian.Uint64(bslice))
-	default:
-		panic(fmt.Sprintf("Error: unknown ptr size: %v", size))
-	}
-	return ptr
-}
-
-/* May not use in the version of no-binding
-ReadPLYListInt32 takes as input a pointer (which should be pointing to C memory) and a number of elements and reads an arbitrary size array into an int32 slice. */
-func ReadPLYListInt32(ptr uintptr, num_elems int) []int32 {
-
-	// read the memory at ptr into a new byte slice
-	var numBytes int
-	numBytes = num_elems * int(unsafe.Sizeof(ptr))
-
-	var tmpSlice = make([]byte, numBytes)
-	for i := 0; i < len(tmpSlice); i++ {
-		//tmpSlice[i] = byte(*(*C.char)(unsafe.Pointer(ptr)))
-		tmpSlice[i] = *(*byte)(unsafe.Pointer(ptr))
-		ptr++
-	}
-
-	// create a return slice and read the new byte slice into it
-	ret := make([]int32, num_elems)
-	buf := bytes.NewBuffer(tmpSlice)
-	err := binary.Read(buf, binary.LittleEndian, ret)
-	if err != nil {
-		panic(err)
-	}
-
-	return ret
 }
 
 /* PlyGetComments returns the comments contained in the open PLY file header. */
@@ -319,7 +269,7 @@ func PlyGetObjInfo(plyfile *PlyFile) []string {
 /* PlyClose closes the open plyfile */
 func PlyClose(plyfile *PlyFile) {
 	if plyfile != nil {
-		err := plyfile.fp.Close()
+		err := plyfile.Fp.Close()
 		if err != nil {
 		}
 	}
@@ -342,7 +292,8 @@ func TypeConverter(typeStr string) int {
 		return PLY_INT
 	case "short":
 		return PLY_SHORT
-
+	case "float32":
+		return PLY_FLOAT
 	}
 	return 0
 }
@@ -350,7 +301,7 @@ func TypeConverter(typeStr string) int {
 func TypeConverterInverse(typeInt int) string {
 	switch typeInt {
 	case PLY_FLOAT:
-		return "float"
+		return "float32"
 	case PLY_INT:
 		return "int"
 	case PLY_UCHAR:

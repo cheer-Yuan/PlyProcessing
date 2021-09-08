@@ -1,0 +1,65 @@
+complex plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+640*480743 res 40
+Time used :   64.271
+
+complex plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+3200240 res 40
+Time used :   53.840
+
+complex plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+1024*768 res 40
+Time used :   80.842
+
+
+
+simple plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+1024*768 res 40
+Time used :   100.574
+
+simple plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+640*480 res 40
+Time used :   37.006
+
+simple plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+320*240 res 40git
+Time used :   8.513
+
+
+
+
+ARM no data collecting
+
+simple plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+320*240 res 5
+Time used :   9.837
+
+simple plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+640*480 res 5
+Time used :   39.448
+
+simple plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+1024*768 res 5
+Time used :   96.386
+
+complex plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+320*240 res 5 / 1.7mb
+Time used :   90.035
+
+complex plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+640*480 res 5
+Time used :   130.267
+complex plane
+calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 2000, 2000, 500)
+1024*768 res 5 / 14mb
+Time used :   162.849

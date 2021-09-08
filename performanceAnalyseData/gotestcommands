@@ -1,0 +1,5 @@
+go test PointcloudCalculator.go PlaneExtractorP.go PlaneExtractor_test.go -test.bench="DistPointPlaneP"
+go test PlaneExtractor_test.go -test.bench=".*" -count=5
+go test -run=文件名字 -bench=bench名字 -cpuprofile=生产的cprofile文件名称 文件夹
+go tool pprof popcnt.test cpu.profile 进入交互模式
+go tool pprof --web popcnt.test cpu.profile 进入web模式

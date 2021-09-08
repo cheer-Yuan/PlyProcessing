@@ -1,0 +1,36 @@
+go test -v -run Nocomp Compressor.go Compressor_test.go 303mb
+342.30 ms
+
+ go test -v -run Bestspeed Compressor.go Compressor_test.go 129mb
+4.807s
+
+go test -v -run Default Compressor.go Compressor_test.go 127mb
+11,129s
+
+go test -v -run Huffman Compressor.go Compressor_test.go 222mb
+3,855s
+
+go test -v -run Comp9 Compressor.go Compressor_test.go  127mb
+8.349s 16%-19%  PEAK:21%-25%
+
+go test -v -run Comp5 Compressor.go Compressor_test.go 127mb
+8.526s  16%-19%
+
+go test -v -run Comp7 Compressor.go Compressor_test.go 127mb
+8.848s  15%-17%
+
+go test -v -run Comp3 Compressor.go Compressor_test.go 118mb
+5.972s 15%-18%
+
+go test -v -run Comp2 Compressor.go Compressor_test.go 134mb
+7.243s 15%-18%
+
+go test -v -run Comp4 Compressor.go Compressor_test.go 117mb
+6.290s 15%-18%
+
+go test -v -run Comp6 Compressor.go Compressor_test.go 127mb
+7.988s 15%-18%
+
+go test -v -run Comp8 Compressor.go Compressor_test.go 127mb
+7.813s 15%-18%
+

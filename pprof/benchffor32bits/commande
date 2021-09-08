@@ -1,0 +1,17 @@
+	f, _ := os.OpenFile("./pprof/PlaneMonoConsecRANSAC.pprof", os.O_CREATE|os.O_RDWR, 0644)
+	defer f.Close()
+	pprof.StartCPUProfile(f)
+	defer pprof.StopCPUProfile()
+
+	t1 := time.Now()
+
+
+	for i := 0; i < 100; i++ {
+		vlist, _ := reader.ReadPLYMono32("./2021-05-18-10:04:04:557-Points.ply")
+
+		_, _ = calculator.PlaneMonoConsecRANSAC32WITHExistIntList(vlist, 0.02, 0.1, 500, 0.1, 6000, 2000, 500)
+	}
+
+
+
+	fmt.Println("Time used : ", time.Since(t1))

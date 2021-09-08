@@ -1,0 +1,15 @@
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ go build -o svd64
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./svd64
+Time used :   29.235581591s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./svd64
+Time used :   30.280010496s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./svd64
+Time used :   28.117461848s
+
+
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./svd32
+Time used :   18.883479971s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./svd32
+Time used :   18.623314151s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./svd32
+Time used :   19.308630649s

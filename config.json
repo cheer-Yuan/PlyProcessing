@@ -1,0 +1,16 @@
+{
+  "InputAddr": "./testData/",
+  "OutputAddr": "./output/",
+  "NumCore": 1,
+  "MaxGort": 4,
+  "CompressLev": 0,
+  "Parameters": {
+    "MaxDistance ":0.01,
+    "MinScoreRANSAC": 0.1,
+    "MinVertexPlane" : 200,
+    "MaxAnglePlane": 0.3,
+    "MaxVertexQuit": 2000,
+    "MaxIteration": 1000,
+    "NumBatch": 500
+  }
+}

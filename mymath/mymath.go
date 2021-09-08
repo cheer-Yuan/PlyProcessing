@@ -8,22 +8,58 @@ func IfInterval(a float64, b float64, c float64) bool {
 	return (a > b) && (a < c)
 }
 
-// DistPointPlane calculate the euclidean distance between a point (x, y, z) and a plane
-func DistPointPlane(x, y, z, a, b, c, d float64) float64 {
-	return math.Abs(float64( x * a + y * b + z * c + d))/ math.Sqrt(float64(a * a + b * b + c * c))
+
+// SqrtRootFloat64 Compute the sqrt using the fast square root method, for 64bits float
+func SqrtRootFloat64(number float64) float64 {
+	var i uint64
+	var x, y float64
+	f := 1.5
+	x = number * 0.5
+	y = number
+	i = math.Float64bits(y)
+	i = 0x5fe6ec85e7de30da - (i >> 1)
+	y = math.Float64frombits(i)
+	y = y * (f - (x * y * y))
+	y = y * (f - (x * y * y))
+	return number * y
+}
+func SqrtRootFloat32(number float32) float32 {
+	var i uint32
+	var x, y float32
+	f := float32(1.5)
+	x = number * float32(0.5)
+	y = number
+	i = math.Float32bits(y)
+	i = 0x5f3759df - (i >> 1)
+	y = math.Float32frombits(i)
+	y = y * (f - (x * y * y))
+	y = y * (f - (x * y * y))
+	return number * y
 }
 
+
 // VectorsAngle calculate angles formed by 2 3-d vectors，output in in the interval [0, 1/2 * pi]
-func VectorsAngle(V1_x, V1_y, V1_z , V2_x, V2_y, V2_z float64) float64 {
+func VectorsAngle64(V1_x, V1_y, V1_z , V2_x, V2_y, V2_z float64) float64 {
 	a := V1_x * V2_x + V1_y * V2_y + V1_z * V2_z
-	b := math.Sqrt(math.Pow(V1_x,2) + math.Pow(V1_y,2) + math.Pow(V1_z,2)) * math.Sqrt(math.Pow(V2_x,2) + math.Pow(V2_y,2) + math.Pow(V2_z,2))
+	b := SqrtRootFloat64(math.Pow(V1_x,2) + math.Pow(V1_y,2) + math.Pow(V1_z,2)) * SqrtRootFloat64(math.Pow(V2_x,2) + math.Pow(V2_y,2) + math.Pow(V2_z,2))
 
 	angle := math.Acos(a / b)
 
 	if angle < 0 || angle > 0.5 * math.Pi {
-		return VectorsAngle(V1_x, V1_y, V1_z , -V2_x, -V2_y, -V2_z)
+		return VectorsAngle64(V1_x, V1_y, V1_z , -V2_x, -V2_y, -V2_z)
 	}
 	return angle
+}
+func VectorsAngle32(V1_x, V1_y, V1_z , V2_x, V2_y, V2_z float32) float32 {
+	a := V1_x * V2_x + V1_y * V2_y + V1_z * V2_z
+	b := SqrtRootFloat32(V1_x * V1_x + V1_y * V1_y + V1_z * V1_z) * SqrtRootFloat32(V2_x * V2_x + V2_y * V2_y + V2_z * V2_z)
+
+	angle := math.Acos(float64(a / b))
+
+	if angle < 0 || angle > 0.5 * math.Pi {
+		return VectorsAngle32(V1_x, V1_y, V1_z , -V2_x, -V2_y, -V2_z)
+	}
+	return float32(angle)
 }
 
 func Dist3D(V1_x, V1_y, V1_z , V2_x, V2_y, V2_z float64) float64 {
@@ -39,22 +75,7 @@ func Average(slice []float64) float64 {
 	return buff
 }
 
-func Minof3(a, b, c float64) float64 {
-	if a > b{
-		if a > c {
-			return a
-		} else {
-			return c
-		}
-	}
-
-	if c > b {
-		return  c
-	} else {
-		return b
-	}
-}
-
+// check if the variable is already in the list
 func ExistIntList(list []int, val int) bool {
 	if len(list) == 0 {
 		return false
@@ -66,22 +87,35 @@ func ExistIntList(list []int, val int) bool {
 	}
 	return false
 }
-
-func IntMean(list []int) float64 {
-	sum := 0
-	for _, i := range list {
-		sum += i
+func ExistIntList32(list []int32, val int32) bool {
+	if len(list) == 0 {
+		return false
 	}
-	return float64(sum) / float64(len(list))
+	for _, i := range list {
+		if i == val {
+			return true
+		}
+	}
+	return false
 }
 
-func IntVariance(list []int, mean float64) float64 {
-	sum := 0.
-	for _, i := range list {
-		sum += (float64(i) - mean) * (float64(i) - mean)
+// DistPointPlane4 32bit calculation except for sqrt
+func DistPointPlane32(x, y, z, a, b, c, d float32) float32 {
+	devised := x * a + y * b + z * c + d
+	devisor := a * a + b * b + c * c
+	if devised > 0 {
+		return devised / SqrtRootFloat32(devisor)
+	} else {
+		return -devised / SqrtRootFloat32(devisor)
 	}
-	return sum / (float64(len(list) - 1))
 }
-
-
+func DistPointPlane64(x, y, z, a, b, c, d float64) float64 {
+	devised := x * a + y * b + z * c + d
+	devisor := a * a + b * b + c * c
+	if devised > 0 {
+		return devised / SqrtRootFloat64(devisor)
+	} else {
+		return -devised / SqrtRootFloat64(devisor)
+	}
+}
 

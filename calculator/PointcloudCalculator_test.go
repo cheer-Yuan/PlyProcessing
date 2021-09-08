@@ -1,11 +1,11 @@
 package calculator
 
 import (
-	"../reader"
+	"dataprocessing/reader"
 	"fmt"
 	"math/rand"
 	"testing"
-	"../mymath"
+	"dataprocessing/mymath"
 	"time"
 )
 

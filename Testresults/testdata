@@ -1,0 +1,12 @@
+
+303mb, 100files,
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing -modeProc=2 -modeComp=3 -maxGr=8
+Time used :   3.765605061s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing -modeProc=2 -modeComp=3 -maxGr=8
+Time used :   4.024898814s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing -modeProc=2 -modeComp=3 -maxGr=8
+Time used :   4.349368615s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing -modeProc=2 -modeComp=3 -maxGr=8
+Time used :   4.383502019s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing -modeProc=2 -modeComp=3 -maxGr=8
+Time used :   4.177118691s

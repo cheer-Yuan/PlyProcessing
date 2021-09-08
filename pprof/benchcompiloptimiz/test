@@ -1,0 +1,60 @@
+		vlist, _ := reader.ReadPLYMono32Huge1("./2021-05-18-10:04:04:557-Points.ply")
+		_, _ = calculator.PlaneMonoConsecRANSAC32WITHExistIntList(vlist, 0.02, 0.1, 500, 0.1, 6000, 2000, 500)
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ go build -gcflags '-N -l'
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.1347538s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.031161726s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.041904383s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.031700313s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.166257951s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.194587252s
+
+
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ go build
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.004387213s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.012629471s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.050445448s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.071211496s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.022598453s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.036528251s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.023273609s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.00945618s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.017532499s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.025207125s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.011701114s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  3.042976436s
+
+
+
+
+
+		_, _ = calculator.PlaneMonoConsecRANSAC32(vlist, 0.02, 0.1, 500, 0.1, 6000, 2000, 500)
+./dataprocessing
+Time used :  5.279316151s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  5.289941057s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  5.581782461s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$ ./dataprocessing
+Time used :  5.265855615s
+liu@Olivia-Yuan-gram17:~/Desktop/Stages/gogs/src/dataprocessing$
+Time used :  5.367856904s
+
+
